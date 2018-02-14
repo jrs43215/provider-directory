@@ -1,0 +1,5 @@
+.CreateProvider {
+  flex-grow: 1;
+  min-width: 15em;
+  max-width: 30em;
+}
