@@ -1,32 +1,89 @@
 import { createStore } from 'redux';
-import { merge, prepend, remove} from 'ramda';
-import { providers } from 'models';
-
+import { filter, merge, prepend } from 'ramda';
+import uuid from 'uuid/v4';
 /**
  * Normally this would be more complex and be split across many files,
  * but that isn't necessary in a small app like this.
  */
 
+// Predefined states
+const defaultState = {
+  currentSort: {
+    field: null,
+    sortType: null,
+  },
+  providers: [],
+}
+
+const initialState = {
+  currentSort: {
+    field: null,
+    sortType: null,
+  },
+  providers: [
+    {
+      lastName: 'Harris',
+      firstName: 'Mike',
+      email: 'mharris@updox.com',
+      specialty: 'Pediatrics',
+      practiceName: 'Harris Pediatrics',
+      uuid: uuid(),
+    },
+    {
+      lastName: 'Wijoyo',
+      firstName: 'Bimo',
+      email: 'bwijoyo@updox.com',
+      specialty: 'Podiatry',
+      practiceName: 'Wijoyo Podiatry',
+      uuid: uuid(),
+    },
+    {
+      lastName: 'Rose',
+      firstName: 'Nate',
+      email: 'nrose@updox.com',
+      specialty: 'Surgery',
+      practiceName: 'Rose Cutters',
+      uuid: uuid(),
+    },
+    {
+      lastName: 'Carlson',
+      firstName: 'Mike',
+      email: 'mcarlson@updox.com',
+      specialty: 'Orthopedics',
+      practiceName: 'Carlson Orthopedics',
+      uuid: uuid(),
+    },
+    {
+      lastName: 'Witting',
+      firstName: 'Mike',
+      email: 'mwitting@updox.com',
+      specialty: 'Pediatrics',
+      practiceName: "Witting's Well Kids Pediatrics",
+      uuid: uuid(),
+    },
+    {
+      lastName: 'Juday',
+      firstName: 'Tobin',
+      email: 'tjuday@updox.com',
+      specialty: 'General Medicine',
+      practiceName: 'Juday Family Practice',
+    },
+  ],
+};
 // Actions
 const ADD_PROVIDER = 'ADD_PROVIDER';
 const REMOVE_PROVIDER = 'REMOVE_PROVIDER';
 
 // Reducers
 
-const defaultState = {
-  currentSort: {
-    field: null,
-    sortType: null,
-  }
-}
-
 function addProviderReducer(provider, state) {
-  const providers = prepend(provider, state.providers);
+  const withUuid = merge({ uuid: uuid() }, provider);
+  const providers = prepend(withUuid, state.providers);
   return merge(state, { providers });
 }
 
-function removeProviderReducer(providerIndex, state) {
-  const providers = remove(providerIndex, 1, state.providers);
+function removeProviderReducer(providerUuid, state) {
+  const providers = filter(p => p.uuid !== providerUuid, state.providers);
   return merge(state, { providers });
 }
 
@@ -56,4 +113,4 @@ function removeProvider(providerIndex) {
   }
 }
 
-export { reducer, addProvider, removeProvider };
+export { reducer, addProvider, removeProvider, initialState };

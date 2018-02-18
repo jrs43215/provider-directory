@@ -2,11 +2,14 @@ import { connect } from 'react-redux';
 import { reverse } from 'ramda';
 import ProviderList from './ProviderList';
 import { removeProvider } from '../redux';
-import { sort } from '../models';
+import { sort } from '../models/providers';
 
 const mapStateToProps = state => {
   const { field, sortType } = state.currentSort;
-  return { providers: }
+  const providers = sort(field, sortType, state.providers)
+  console.log(state);
+  console.log(providers);
+  return { providers: providers };
 }
 
 const mapDispatchToProps = dispatch => {

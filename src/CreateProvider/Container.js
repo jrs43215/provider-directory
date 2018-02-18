@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import CreateProvider from './CreateProvider';
 import { addProvider } from '../redux';
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => {
   return {
