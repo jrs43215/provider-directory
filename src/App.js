@@ -4,8 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardHeader } from 'material-ui/Card';
 import './App.css';
 
-import CreateProvider from './CreateProvider';
-import ProviderList from './ProviderList';
+import CreateProviderContainer from './CreateProvider/Container';
+import ProviderListContainer from './ProviderList/Container';
 
 class App extends Component {
   render() {
@@ -18,8 +18,8 @@ class App extends Component {
             />
           </header>
           <div id="cardContainer">
-            <CreateProvider/>
-            <ProviderList/>
+            <CreateProviderContainer/>
+            <ProviderListContainer/>
           </div>
         </div>
       </MuiThemeProvider>
