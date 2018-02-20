@@ -4,3 +4,13 @@
   min-width: 20em;
   max-width: 100em;
 }
+
+.material-icons {
+  font-size: 16px;
+}
+
+.tableFooter {
+  display: flex;
+  justify-content: right;
+  margin: 1em;
+}

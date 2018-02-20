@@ -15,6 +15,7 @@ class App extends Component {
           <header>
             <AppBar
               title="Provider Directory"
+              showMenuIconButton={false}
             />
           </header>
           <div id="cardContainer">

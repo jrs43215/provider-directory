@@ -1,20 +1,20 @@
 import { connect } from 'react-redux';
-import { reverse } from 'ramda';
 import ProviderList from './ProviderList';
-import { removeProvider } from '../redux';
-import { sort } from '../models/providers';
+import { removeProvider, changeSort, changeSearch, selectProvider } from '../redux';
+import { sortAndFilter } from '../models/providers';
 
 const mapStateToProps = state => {
   const { field, sortType } = state.currentSort;
-  const providers = sort(field, sortType, state.providers)
-  console.log(state);
-  console.log(providers);
-  return { providers: providers };
+  const providers = sortAndFilter(field, sortType, state.currentSearch, state.providers);
+  return { providers, sortType, sortField: field, selected: state.selectedProvider };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeProvider,
+    removeProvider: (uuid) => dispatch(removeProvider(uuid)),
+    changeSort: (field, type) => dispatch(changeSort(field, type)),
+    changeSearch: (search) => dispatch(changeSearch(search)),
+    selectProvider: (uuid) => dispatch(selectProvider(uuid)),
   };
 };
 

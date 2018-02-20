@@ -1,5 +1,12 @@
 .CreateProvider {
   flex-grow: 1;
-  min-width: 15em;
+  min-width: 20em;
   max-width: 30em;
+  max-height: 25em;
+}
+
+#createProviderForm {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
 }

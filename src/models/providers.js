@@ -1,6 +1,7 @@
-import { map, merge, values } from 'ramda';
-import { sortTypes, sortByField } from '../shared/sorting';
-import { anyIsNil, findMissing } from '../shared/validation';
+import { merge, values } from 'ramda';
+import { sortByField } from '../shared/sorting';
+import { anyContainsFilter } from '../shared/filtering';
+import { findMissing } from '../shared/validation';
 
 const requiredFields = {
   lastName: 'lastName',
@@ -15,8 +16,9 @@ const optionalFields = {
 
 const fields = merge(requiredFields, optionalFields);
 
-function sort(field, type, providers) {
-  return sortByField(field, type, providers);
+function sortAndFilter(field, type, search, providers) {
+  const filtered = anyContainsFilter(providers, search);
+  return sortByField(field, type, filtered);
 }
 
 function validate(provider) {
@@ -24,4 +26,4 @@ function validate(provider) {
   return { missing };
 }
 
-export { requiredFields, optionalFields, fields, sort, validate };
+export { requiredFields, optionalFields, fields, sortAndFilter, validate };

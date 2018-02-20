@@ -1,4 +1,3 @@
-import { createStore } from 'redux';
 import { filter, merge, prepend } from 'ramda';
 import uuid from 'uuid/v4';
 /**
@@ -12,6 +11,8 @@ const defaultState = {
     field: null,
     sortType: null,
   },
+  currentSearch: '',
+  selectedProvider: '',
   providers: [],
 }
 
@@ -20,6 +21,8 @@ const initialState = {
     field: null,
     sortType: null,
   },
+  currentSearch: '',
+  selectedProvider: '',
   providers: [
     {
       lastName: 'Harris',
@@ -67,12 +70,18 @@ const initialState = {
       email: 'tjuday@updox.com',
       specialty: 'General Medicine',
       practiceName: 'Juday Family Practice',
+      uuid: uuid(),
     },
   ],
 };
+
 // Actions
+//
 const ADD_PROVIDER = 'ADD_PROVIDER';
+const SELECT_PROVIDER = 'SELECT_PROVIDER';
 const REMOVE_PROVIDER = 'REMOVE_PROVIDER';
+const CHANGE_SORT = 'CHANGE_SORT';
+const CHANGE_SEARCH = 'CHANGE_SEARCH';
 
 // Reducers
 
@@ -93,6 +102,12 @@ function reducer(state = defaultState, action) {
       return addProviderReducer(action.provider, state);
     case REMOVE_PROVIDER:
       return removeProviderReducer(action.providerIndex, state);
+    case CHANGE_SORT:
+      return merge(state, { currentSort: action.sort });
+    case CHANGE_SEARCH:
+      return merge(state, { currentSearch: action.search });
+    case SELECT_PROVIDER:
+      return merge(state, { selectedProvider: action.selected });
     default:
       return state;
   }
@@ -113,4 +128,25 @@ function removeProvider(providerIndex) {
   }
 }
 
-export { reducer, addProvider, removeProvider, initialState };
+function changeSort(field, sortType) {
+  return {
+    type: CHANGE_SORT,
+    sort: { field, sortType },
+  }
+}
+
+function changeSearch(search) {
+  return {
+    type: CHANGE_SEARCH,
+    search
+  }
+}
+
+function selectProvider(providerUuid) {
+    return {
+      type: SELECT_PROVIDER,
+      selected: providerUuid
+    }
+}
+
+export { reducer, addProvider, removeProvider, changeSort, changeSearch, selectProvider, initialState };

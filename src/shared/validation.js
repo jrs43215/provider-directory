@@ -18,8 +18,8 @@ function anyNil() {
  * @return {string[]}                   array of missing keys
  */
 function findMissing(requiredFields = [], obj) {
-  const hasField = (field) => has(field, obj);
-  return filter(hasField, requiredFields);
+  const missingField = (field) => !has(field, obj);
+  return filter(missingField, requiredFields);
 }
 
 export { anyNil, findMissing };

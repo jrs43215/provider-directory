@@ -6,7 +6,7 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProvider,
+    addProvider: (provider) => dispatch(addProvider(provider))
   };
 };
 
